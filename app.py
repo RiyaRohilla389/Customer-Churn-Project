@@ -208,6 +208,7 @@ df["TotalCharges"].fillna(
     df["TotalCharges"].median(),
     inplace=True
 )
+df.fillna(0,inplace=True)
 
 # =====================================================
 # DEFINE FEATURES AND TARGET
