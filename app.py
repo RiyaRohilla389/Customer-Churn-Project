@@ -197,7 +197,7 @@ for column in df.columns:
 
 for column in df.columns:
 
-        df[column] = pd.to_numeric(df[column])
+        df[column] = pd.to_numeric(df[column],errors='coerce')
 
 print(df.dtypes)
 
