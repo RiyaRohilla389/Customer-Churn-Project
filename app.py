@@ -92,13 +92,6 @@ df["TotalCharges"] = pd.to_numeric(
     errors='coerce'
 )
 
-# Fill missing values
-
-df["TotalCharges"].fillna(
-    df["TotalCharges"].median(),
-    inplace=True
-)
-
 # =====================================================
 # FEATURE ENGINEERING
 # =====================================================
@@ -207,6 +200,14 @@ for column in df.columns:
         df[column] = pd.to_numeric(df[column])
 
 print(df.dtypes)
+
+
+# Fill missing values
+
+df["TotalCharges"].fillna(
+    df["TotalCharges"].median(),
+    inplace=True
+)
 
 # =====================================================
 # DEFINE FEATURES AND TARGET
