@@ -71,7 +71,7 @@ st.dataframe(df.head())
 
 st.subheader("Dataset Information")
 
-st.write(df.info())
+st.write(df.head())
 
 st.subheader("Missing Values")
 
@@ -183,13 +183,18 @@ st.pyplot(fig3)
 # LABEL ENCODING
 # =====================================================
 
-le = LabelEncoder()
+# Store encoders for later use
+label_encoders = {}
 
 for column in df.columns:
 
     if df[column].dtype == 'object':
 
+        le = LabelEncoder()
+
         df[column] = le.fit_transform(df[column])
+
+        label_encoders[column] = le
 
 # =====================================================
 # DEFINE FEATURES AND TARGET
