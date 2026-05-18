@@ -117,6 +117,7 @@ st.write(
     df[['tenure', 'CustomerCategory']].head()
 )
 
+
 # =====================================================
 # EDA VISUALIZATIONS
 # =====================================================
@@ -195,6 +196,22 @@ for column in df.columns:
         df[column] = le.fit_transform(df[column])
 
         label_encoders[column] = le
+
+# =====================================================
+# FORCE CONVERT ALL COLUMNS
+# =====================================================
+
+for column in df.columns:
+
+    try:
+
+        df[column] = pd.to_numeric(df[column])
+
+    except:
+
+        pass
+
+print(df.dtypes)
 
 # =====================================================
 # DEFINE FEATURES AND TARGET
