@@ -204,13 +204,7 @@ for column in df.columns:
 
 for column in df.columns:
 
-    try:
-
         df[column] = pd.to_numeric(df[column])
-
-    except:
-
-        pass
 
 print(df.dtypes)
 
