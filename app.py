@@ -180,6 +180,7 @@ ax3.set_title("Monthly Charges vs Churn")
 
 st.pyplot(fig3)
 
+
 # =====================================================
 # LABEL ENCODING
 # =====================================================
@@ -193,7 +194,7 @@ for column in df.columns:
 
         le = LabelEncoder()
 
-        df[column] = le.fit_transform(df[column])
+        df[column] = le.fit_transform(df[column].astype(str))
 
         label_encoders[column] = le
 
