@@ -85,12 +85,22 @@ st.write(df.isnull().sum())
 
 df.drop("customerID", axis=1, inplace=True)
 
+print(df.dtypes)
+
 # Convert TotalCharges into numeric
 
 df["TotalCharges"] = pd.to_numeric(
     df["TotalCharges"],
     errors='coerce'
 )
+
+# Fill missing values
+
+df["TotalCharges"].fillna(
+    df["TotalCharges"].median(),
+    inplace=True
+)
+df.fillna(0,inplace=True)
 
 # =====================================================
 # FEATURE ENGINEERING
@@ -182,33 +192,26 @@ st.pyplot(fig3)
 label_encoders = {}
 
 for column in df.columns:
+    if column!="Churn":
 
-    if df[column].dtype == 'object':
+        if df[column].dtype == 'object':
 
-        le = LabelEncoder()
+            le = LabelEncoder()
 
-        df[column] = le.fit_transform(df[column].astype(str))
+            df[column] = le.fit_transform(df[column].astype(str))
 
-        label_encoders[column] = le
-
-# =====================================================
-# FORCE CONVERT ALL COLUMNS
-# =====================================================
-
-for column in df.columns:
-
-        df[column] = pd.to_numeric(df[column],errors='coerce')
-
-print(df.dtypes)
+            label_encoders[column] = le
 
 
-# Fill missing values
+# -----------------------------------------------------
+# ENCODE TARGET COLUMN
+# -----------------------------------------------------
 
-df["TotalCharges"].fillna(
-    df["TotalCharges"].median(),
-    inplace=True
+target_encoder = LabelEncoder()
+
+df["Churn"] = target_encoder.fit_transform(
+    df["Churn"]
 )
-df.fillna(0,inplace=True)
 
 # =====================================================
 # DEFINE FEATURES AND TARGET
