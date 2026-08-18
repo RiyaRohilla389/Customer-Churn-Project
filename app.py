@@ -84,7 +84,6 @@ st.write(df.isnull().sum())
 # Remove customerID column
 
 df.drop("customerID", axis=1, inplace=True)
-
 print(df.dtypes)
 
 # Convert TotalCharges into numeric
@@ -188,21 +187,23 @@ st.pyplot(fig3)
 # LABEL ENCODING
 # =====================================================
 
-# Store encoders for later use
-label_encoders = {}
-
-for column in df.columns:
-    if column!="Churn":
-
-        if df[column].dtype == 'object':
-
-            le = LabelEncoder()
-
-            df[column] = le.fit_transform(df[column].astype(str))
-
-            label_encoders[column] = le
+# Features and target
+X = df.drop("Churn", axis=1)
+y = df["Churn"]
 
 
+# Encode all categorical columns
+le = LabelEncoder()
+
+from sklearn.preprocessing import LabelEncoder
+
+le = LabelEncoder()
+
+for col in df.select_dtypes(include='object').columns:
+    df[col] = le.fit_transform(df[col])
+
+# Check datatypes
+print(X.dtypes)
 # -----------------------------------------------------
 # ENCODE TARGET COLUMN
 # -----------------------------------------------------
